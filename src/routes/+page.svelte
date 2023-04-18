@@ -132,7 +132,7 @@
     background-color: #111;
     color: #fff;
     font-family: "Special Elite", cursive;
-    font-size: 5rem;
+    font-size: 4rem;
     border: 0.5rem solid #fff;
     z-index: 99;
   }
