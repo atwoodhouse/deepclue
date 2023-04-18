@@ -47,7 +47,7 @@ const parseMessage = (message: Message) => {
     } else if (line.startsWith("Questions: ")) {
       state.update((s) => ({ ...s, questions: Number(line.replace("Questions: ", "")) }));
     } else if (line.startsWith("People: ")) {
-      state.update((s) => ({ ...s, people: line.replace("People: ", "").split(",") }));
+      state.update((s) => ({ ...s, people: line.replace("People: ", "").split(", ") }));
     } else if (line.startsWith("Tension: ")) {
       state.update((s) => ({ ...s, tension: line.replace("Tension: ", "") }));
     } else if (line.startsWith("Murderer: ")) {
@@ -73,13 +73,11 @@ export const messages = {
 
     Format of the question responses:
     Questions: <number of questions left>
-    People: <characters names that are talking in this response, comma separated if multiple people are talking in the response>
+    People: <characters names that are talking in this response, as they were defined in the system prompt, comma separated if multiple people are talking in the response>
     Tension: <either "Tense" or "Calm", depending on if this specific text is more or less tense than average in this conversation>
     Text: <text output, which can contain clues of who the murderer is>
     
     Constraints: The user is not allowed more than 20 questions. After 20 questions the user must guess who the murderer is.`;
-
-    console.log({contentToSend});
 
     const messagesAfterAdd = [
       ...get(_messages),

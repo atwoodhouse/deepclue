@@ -30,9 +30,10 @@
 
     $: focusClass = (name: string) => $state.people.includes(name);
 </script>
+
 <div class="people">
-  {#each people as { name, image }}
-    <img src={image} class:focus={focusClass(name)} />
+  {#each people as person(person.name)}
+    <img src={person.image} class:focus={focusClass(person.name)} />
   {/each}
 </div>
 
