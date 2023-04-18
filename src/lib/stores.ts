@@ -28,6 +28,7 @@ export const state: Writable<State> = writable({
   room: "",
   victim: "",
   weapon: "",
+  murderer: "",
   tension: "Calm",
   questions: 20,
   people: [],
@@ -49,6 +50,8 @@ const parseMessage = (message: Message) => {
       state.update((s) => ({ ...s, people: line.replace("People: ", "").split(",") }));
     } else if (line.startsWith("Tension: ")) {
       state.update((s) => ({ ...s, tension: line.replace("Tension: ", "") }));
+    } else if (line.startsWith("Murderer: ")) {
+      state.update((s) => ({ ...s, murderer: line.replace("Murderer: ", "") }));
     } else {
       state.update((s) => ({
         ...s,

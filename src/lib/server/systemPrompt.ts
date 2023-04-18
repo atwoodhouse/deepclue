@@ -29,7 +29,7 @@ Rooms in the castle:
 * Library
 * Study
 
-Give the characters colourful unique personalities. Decide which character has been murdered, in what room and using what weapon.
+Give the characters colourful unique personalities. Decide which character has been murdered, in what room and using what weapon, and by whom. But don't let the user understand who the murderer is before asking questions.
 
 As a detective, I have just arrived at the castle and am welcomed by James the Butler. Describe the mood at the castle, the murder scene, the victim, the weapon, and the clues I can see in the room. Also, explain that all characters are assembled in the room of the murder to be questioned by me. Remember, the guilty character should try to conceal their guilt, but their story should not add up. The characters can be suspicious of each other and accuse someone they've seen doing something suspicious.
 
@@ -37,4 +37,5 @@ Format of the setup response:
 Room: <name of room we're in>
 Victim: <name of victim>
 Weapon: <name of murder weapon>
+Murderer: <name of the murderer>
 Text: <initial text output>`;
