@@ -33,7 +33,10 @@
 
 <div class="people">
   {#each people as person(person.name)}
+  <div>
     <img src={person.image} class:focus={focusClass(person.name)} />
+    <p>{person.name}</p>
+</div>
   {/each}
 </div>
 
@@ -59,6 +62,10 @@
     transform: scale(2);
     z-index: 2;
     animation: shake 3s linear infinite;
+  }
+  p {
+    color: #777;
+    text-align: center;
   }
 
   @keyframes shake {
