@@ -67,6 +67,7 @@ export const messages = {
     state.update(s => ({ ...s, waitingForAI: false }));
     _messages.update((m) => [...m, message]);
     parseMessage(message);
+    setTimeout(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }), 200); 
   },
   addFromUser: (text: string) => {
     const contentToSend = `Question ${21 - get(state).questions} (out of 20): ${text}
