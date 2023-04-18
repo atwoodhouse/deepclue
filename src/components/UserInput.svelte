@@ -25,5 +25,6 @@
         font-family: "Electrolize", sans-serif;
         width: 90%;
         margin: 0 5%;
+        z-index: 4;
     }
 </style>
