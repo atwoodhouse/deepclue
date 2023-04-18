@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import { state } from "$lib/stores";
 
     const people = [
@@ -27,10 +27,12 @@
             image: "professor_plum.jpg"
         },
     ];
+
+    $: focusClass = (name: string) => $state.people.includes(name);
 </script>
 <div class="people">
   {#each people as { name, image }}
-    <img src={image} class:focus={$state.people.includes(name)} />
+    <img src={image} class:focus={focusClass(name)} />
   {/each}
 </div>
 
