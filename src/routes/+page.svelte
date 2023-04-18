@@ -4,26 +4,30 @@
   import { onMount } from "svelte";
   import { messages, state, type Message } from "$lib/stores";
   import UserInput from "../components/UserInput.svelte";
+  import { communicate } from "$lib/communicate";
 
   onMount(() => {
-    const message: Message = {
+    /*const message: Message = {
       role: "assistant",
       content:
         "Room: Library\nVictim: Mrs. Peacock\nWeapon: Candlestick\nText: As you arrive at the castle, you are greeted by James the Butler. He asks for your name and a brief description of your appearance. After a few short pleasantries, he leads you to the Library where you discover the lifeless body of Mrs. Peacock lying on the floor, with a candlestick lying next to her. \n\nQuestions: 20\nPeople: Dr. Orchid, Colonel Mustard, Professor Plum, Miss Scarlet, Mr. Green\nText: All of the characters have been assembled in the room to be questioned. Dr. Orchid is nervously fidgeting with her lab coat, while Colonel Mustard stands with his arms crossed looking defensive. Professor Plum is muttering to himself, while Miss Scarlet is preening her hair, and Mr. Green is pacing back and forth.\n\nWhat would you like to ask first?",
     };
-    messages.addFromAssistant(message);
+    messages.addFromAssistant(message);*/
+    communicate([]);
   });
 </script>
 
 <header>
-  <h1>DeepClue</h1>
+  <h1 class:spin={$state.waitingForAI}>DeepClue</h1>
 
   <div class="state">
     <p>Room: <span>{$state.room}</span></p>
     <p>Victim: <span>{$state.victim}</span></p>
     <p>Weapon: <span>{$state.weapon}</span></p>
     <p>Questions left: <span>{$state.questions}</span></p>
-    <p>People talking right now, that should be visualized: <span>{$state.people.join(", ")}</span></p>
+    <p>
+      People talking right now, that should be visualized: <span>{$state.people.join(", ")}</span>
+    </p>
   </div>
 </header>
 
@@ -57,6 +61,9 @@
     font-family: "Special Elite", cursive;
     font-size: 5rem;
   }
+  h1.spin {
+    animation: spin 2s linear infinite;
+  }
 
   .state {
     max-width: 300px;
@@ -85,5 +92,14 @@
   .you {
     font-weight: 700;
     color: #fff;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 </style>

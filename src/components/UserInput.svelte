@@ -1,5 +1,5 @@
 <script>
-    import { messages } from "$lib/stores";
+    import { messages, state } from "$lib/stores";
 
     let value = "";
 
@@ -10,7 +10,7 @@
 </script>
 
 <form on:submit|preventDefault={submit}>
-    <input bind:value placeholder="Reply here..." />
+    <input bind:value placeholder="Reply here..." disabled={$state.waitingForAI} />
 </form>
 
 <style>
