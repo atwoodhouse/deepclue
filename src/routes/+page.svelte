@@ -1,22 +1,25 @@
 <script lang="ts">
   import "@fontsource/special-elite";
   import "@fontsource/electrolize";
-  import { onMount } from "svelte";
-  import { messages, state, type Message } from "$lib/stores";
+  import { state } from "$lib/stores";
   import UserInput from "../components/UserInput.svelte";
   import { communicate } from "$lib/communicate";
   import People from "../components/People.svelte";
 
+  let started = false;
   let calmAudio: HTMLAudioElement;
   let tenseAudio: HTMLAudioElement;
   let previousTension = "Calm";
 
-  onMount(() => {
+  const start = () => {
     communicate([]);
     calmAudio = new Audio("/calm.mp3");
     tenseAudio = new Audio("/tense.mp3");
     calmAudio.play();
-  });
+    tenseAudio.load();
+    tenseAudio.pause();
+    started = true;
+  };
 
   const handleTension = (tension: "Calm" | "Tense") => {
     if(tension === previousTension) return;
@@ -58,6 +61,10 @@
 </div>
 
 <UserInput />
+
+{#if !started}
+  <button class="start-button" on:click={start}>Start DeepClue</button>
+{/if}
 
 <style>
   :global(*) {
@@ -114,6 +121,20 @@
   .you {
     font-weight: 700;
     color: #fff;
+  }
+
+  .start-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #111;
+    color: #fff;
+    font-family: "Special Elite", cursive;
+    font-size: 5rem;
+    border: 0.5rem solid #fff;
+    z-index: 99;
   }
 
   @keyframes spin {
