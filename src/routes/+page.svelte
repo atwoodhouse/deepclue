@@ -1,4 +1,6 @@
 <script lang="ts">
+  import "@fontsource/special-elite";
+  import "@fontsource/electrolize";
   import { onMount } from "svelte";
   import { messages, state, type Message } from "./lib/stores";
 
@@ -13,26 +15,60 @@
 </script>
 
 <h1>DeepClue</h1>
-<p>Room: {$state.room}</p>
-<p>Victim: {$state.victim}</p>
-<p>Weapon: {$state.weapon}</p>
-<p>Questions left: {$state.questions}</p>
-<p>People talking right now, that should be visualized: {$state.people.join(", ")}</p>
 
-<div class="texts">
+<div class="state">
+  <p>Room: <span>{$state.room}</span></p>
+  <p>Victim: <span>{$state.victim}</span></p>
+  <p>Weapon: <span>{$state.weapon}</span></p>
+  <p>Questions left: <span>{$state.questions}</span></p>
+  <p>People talking right now, that should be visualized: <span>{$state.people.join(", ")}</span></p>
+</div>
+
+<div class="story">
   {#each $state.paragraphs as { who, text }}
     <p class:you={who === "you"}>{text}</p>
   {/each}
 </div>
 
 <style>
-  :global(html) {
+  :global(*) {
+    box-sizing: border-box;
+  }
+  :global(body) {
     background-color: #111;
     color: #fff;
+    font-family: "Electrolize", sans-serif;
+    line-height: 1.5;
   }
-  .texts {
+  h1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-family: "Special Elite", cursive;
+    font-size: 5rem;
+  }
+
+  .state {
+    max-width: 300px;
+    margin: 1rem 1rem 1rem auto;
+    padding: 1rem;
+    background-color: #3337;
+  }
+  .state p {
+    margin: 0.25rem;
+    font-size: 0.75rem;
+  }
+  .state p span {
+    font-size: 1.25rem;
+    font-family: "Special Elite", cursive;
+  }
+  .story {
     background-color: #333;
     padding: 1rem;
+    width: 90%;
+    max-width: 60rem;
+    margin: 2rem auto 6rem;
+    font-size: 1.25rem;
   }
   .you {
     font-weight: 700;
