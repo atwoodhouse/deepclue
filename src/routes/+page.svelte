@@ -2,7 +2,7 @@
   import "@fontsource/special-elite";
   import "@fontsource/electrolize";
   import { onMount } from "svelte";
-  import { messages, state, type Message } from "./lib/stores";
+  import { messages, state, type Message } from "$lib/stores";
 
   onMount(() => {
     const message: Message = {
@@ -14,21 +14,24 @@
   });
 </script>
 
-<h1>DeepClue</h1>
+<header>
+  <h1>DeepClue</h1>
 
-<div class="state">
-  <p>Room: <span>{$state.room}</span></p>
-  <p>Victim: <span>{$state.victim}</span></p>
-  <p>Weapon: <span>{$state.weapon}</span></p>
-  <p>Questions left: <span>{$state.questions}</span></p>
-  <p>People talking right now, that should be visualized: <span>{$state.people.join(", ")}</span></p>
-</div>
+  <div class="state">
+    <p>Room: <span>{$state.room}</span></p>
+    <p>Victim: <span>{$state.victim}</span></p>
+    <p>Weapon: <span>{$state.weapon}</span></p>
+    <p>Questions left: <span>{$state.questions}</span></p>
+    <p>People talking right now, that should be visualized: <span>{$state.people.join(", ")}</span></p>
+  </div>
+</header>
 
 <div class="story">
   {#each $state.paragraphs as { who, text }}
     <p class:you={who === "you"}>{text}</p>
   {/each}
 </div>
+
 
 <style>
   :global(*) {
@@ -39,6 +42,11 @@
     color: #fff;
     font-family: "Electrolize", sans-serif;
     line-height: 1.5;
+  }
+
+  header {
+    position: sticky;
+    top: 1rem;
   }
   h1 {
     position: absolute;
@@ -52,7 +60,8 @@
     max-width: 300px;
     margin: 1rem 1rem 1rem auto;
     padding: 1rem;
-    background-color: #3337;
+    background-color: #f65c51;
+    color: #000;
   }
   .state p {
     margin: 0.25rem;
