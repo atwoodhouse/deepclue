@@ -75,7 +75,9 @@ export const messages = {
     Questions: <number of questions left>
     People: <characters names that are talking in this response, comma separated if multiple people are talking in the response>
     Tension: <either "Tense" or "Calm", depending on if this specific text is more or less tense than average in this conversation>
-    Text: <text output>`;
+    Text: <text output, which can contain clues of who the murderer is>
+    
+    Constraints: The user is not allowed more than 20 questions. After 20 questions the user must guess who the murderer is.`;
 
     console.log({contentToSend});
 
