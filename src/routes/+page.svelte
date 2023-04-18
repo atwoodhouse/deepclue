@@ -3,6 +3,7 @@
   import "@fontsource/electrolize";
   import { onMount } from "svelte";
   import { messages, state, type Message } from "$lib/stores";
+  import UserInput from "../components/UserInput.svelte";
 
   onMount(() => {
     const message: Message = {
@@ -32,6 +33,7 @@
   {/each}
 </div>
 
+<UserInput />
 
 <style>
   :global(*) {
@@ -78,8 +80,10 @@
     max-width: 60rem;
     margin: 2rem auto 6rem;
     font-size: 1.25rem;
+    color: #ddd;
   }
   .you {
     font-weight: 700;
+    color: #fff;
   }
 </style>
