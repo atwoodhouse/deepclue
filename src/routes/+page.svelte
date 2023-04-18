@@ -7,9 +7,31 @@
   import { communicate } from "$lib/communicate";
   import People from "../components/People.svelte";
 
+  let calmAudio: HTMLAudioElement;
+  let tenseAudio: HTMLAudioElement;
+  let previousTension = "Calm";
+
   onMount(() => {
     communicate([]);
+    calmAudio = new Audio("/calm.mp3");
+    tenseAudio = new Audio("/tense.mp3");
+    calmAudio.play();
   });
+
+  const handleTension = (tension: "Calm" | "Tense") => {
+    if(tension === previousTension) return;
+    previousTension = tension;
+
+    if(tension === "Calm") {
+      tenseAudio.pause();
+      calmAudio.play();
+    } else {
+      calmAudio.pause();
+      tenseAudio.play();
+    }
+  };
+
+  $: typeof window !== undefined && handleTension($state.tension);
 </script>
 
 <header>
