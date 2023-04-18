@@ -28,6 +28,7 @@
     <p>
       People talking right now, that should be visualized: <span>{$state.people.join(", ")}</span>
     </p>
+    <p>Tension: <span>{$state.tension}</span></p>
   </div>
 </header>
 
