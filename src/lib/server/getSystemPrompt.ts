@@ -17,14 +17,6 @@ Characters:
 * Mrs. Peacock
 * Mr. Green
 
-Available weapons:
-* knife
-* revolver
-* rope
-* wrench
-* candlestick
-* lead pipe
-
 Rooms in the castle:
 * Ball Room
 * Billiard Room
