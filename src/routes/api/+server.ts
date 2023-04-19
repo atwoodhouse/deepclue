@@ -1,6 +1,6 @@
 import { Configuration, OpenAIApi } from "openai";
 import { OPENAI_API_KEY } from "$env/static/private";
-import { systemPrompt } from "$lib/server/systemPrompt";
+import { getSystemPrompt } from "$lib/server/getSystemPrompt";
 
 export async function POST({ request }) {
   const configuration = new Configuration({
@@ -8,13 +8,13 @@ export async function POST({ request }) {
   });
   const openai = new OpenAIApi(configuration);
 
-  const { messages } = await request.json();
+  const { messages, meta } = await request.json();
 
   console.log("asking question");
 
   const completion = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
-    messages: [{ role: "system", content: systemPrompt }, ...messages],
+    messages: [{ role: "system", content: getSystemPrompt(meta) }, ...messages],
   });
 
   console.log(JSON.stringify(completion.data));

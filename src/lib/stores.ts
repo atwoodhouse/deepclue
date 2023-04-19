@@ -11,6 +11,7 @@ interface State {
   room: string;
   victim: string;
   weapon: string;
+  murderer: string;
   tension: string;
   questions: number;
   people: string[];
@@ -22,13 +23,20 @@ export interface Message {
   content: string;
 }
 
+const availableRooms = ["Ball Room", "Billiard Room", "Conservatory", "Kitchen", "Hall", "Cellar", "Lounge", "Library", "Study"];
+const availableCharacters = ["Doctor Orchid", "Colonel Mustard", "Professor Plum", "Miss Scarlet", "Mrs. Peacock", "Mr. Green"];
+const availableWeapons = ["knife", "revolver", "rope", "wrench", "candlestick", "lead pipe"];
+
+const pickOne = (array: string[]) => array[Math.floor(Math.random() * array.length)];
+const victim = pickOne(availableCharacters);
+
 const _messages: Writable<Message[]> = writable([]);
 export const state: Writable<State> = writable({
   waitingForAI: false,
-  room: "",
-  victim: "",
-  weapon: "",
-  murderer: "",
+  room: pickOne(availableRooms),
+  victim: victim,
+  weapon: pickOne(availableWeapons),
+  murderer: pickOne(availableCharacters.filter(c => c !== victim)),
   tension: "Calm",
   questions: 20,
   people: [],
@@ -38,20 +46,12 @@ export const state: Writable<State> = writable({
 const parseMessage = (message: Message) => {
   const lines = message.content.split("\n");
   lines.forEach((line) => {
-    if (line.startsWith("Room: ")) {
-      state.update((s) => ({ ...s, room: line.replace("Room: ", "") }));
-    } else if (line.startsWith("Victim: ")) {
-      state.update((s) => ({ ...s, victim: line.replace("Victim: ", "") }));
-    } else if (line.startsWith("Weapon: ")) {
-      state.update((s) => ({ ...s, weapon: line.replace("Weapon: ", "") }));
-    } else if (line.startsWith("Questions: ")) {
+    if (line.startsWith("Questions: ")) {
       state.update((s) => ({ ...s, questions: Number(line.replace("Questions: ", "")) }));
     } else if (line.startsWith("People: ")) {
       state.update((s) => ({ ...s, people: line.replace("People: ", "").split(", ") }));
     } else if (line.startsWith("Tension: ")) {
       state.update((s) => ({ ...s, tension: line.replace("Tension: ", "") }));
-    } else if (line.startsWith("Murderer: ")) {
-      state.update((s) => ({ ...s, murderer: line.replace("Murderer: ", "") }));
     } else {
       state.update((s) => ({
         ...s,
