@@ -72,15 +72,7 @@ export const messages = {
     setTimeout(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }), 200); 
   },
   addFromUser: (text: string) => {
-    const contentToSend = `Question ${21 - get(state).questions} (out of 20): ${text}
-
-    Format of the question responses:
-    Questions: <number of questions left>
-    People: <characters names that are talking in this response, as they were defined in the system prompt, comma separated if multiple people are talking in the response>
-    Tension: <either "Tense" or "Calm", depending on if this specific text is more or less tense than average in this conversation>
-    Text: <text output, which can contain clues of who the murderer is>
-    
-    Constraints: The user is not allowed more than 20 questions. After 20 questions the user must guess who the murderer is.`;
+    const contentToSend = `Question ${21 - get(state).questions} (out of 20): ${text}`;
 
     const messagesAfterAdd = [
       ...get(_messages),
