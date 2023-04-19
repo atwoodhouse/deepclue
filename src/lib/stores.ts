@@ -7,6 +7,7 @@ interface Paragraph {
 }
 
 interface State {
+  error: boolean;
   waitingForAI: boolean;
   room: string;
   victim: string;
@@ -32,6 +33,7 @@ const victim = pickOne(availableCharacters);
 
 const _messages: Writable<Message[]> = writable([]);
 export const state: Writable<State> = writable({
+  error: false,
   waitingForAI: false,
   room: pickOne(availableRooms),
   victim: victim,

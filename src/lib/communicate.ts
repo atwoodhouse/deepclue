@@ -19,6 +19,6 @@ export const communicate = async (messagesToSend: Message[]) => {
     const newMessage: Message = await res.json();
     messages.addFromAssistant(newMessage);
   } catch {
-    alert("API error.");
+    state.update(s => ({ ...s, error: true }));
   }
 };

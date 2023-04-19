@@ -5,6 +5,7 @@
   import UserInput from "../components/UserInput.svelte";
   import { communicate } from "$lib/communicate";
   import People from "../components/People.svelte";
+  import Error from "../components/Error.svelte";
 
   let started = false;
   let calmAudio: HTMLAudioElement;
@@ -22,10 +23,10 @@
   };
 
   const handleTension = (tension: "Calm" | "Tense") => {
-    if(tension === previousTension) return;
+    if (tension === previousTension) return;
     previousTension = tension;
 
-    if(tension === "Calm") {
+    if (tension === "Calm") {
       tenseAudio.pause();
       calmAudio.play();
     } else {
@@ -61,6 +62,10 @@
 </div>
 
 <UserInput />
+
+{#if $state.error}
+  <Error />
+{/if}
 
 {#if !started}
   <button class="start-button" on:click={start}>Start DeepClue</button>
