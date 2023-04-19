@@ -19,5 +19,7 @@ export async function POST({ request }) {
 
   console.log(JSON.stringify(completion.data));
 
-  return new Response(JSON.stringify(completion.data.choices[0].message));
+  const response = new Response(JSON.stringify(completion.data.choices[0].message));
+  response.headers.append("Access-Control-Allow-Origin", "https://deepclue.vercel.app");
+  return response;
 }

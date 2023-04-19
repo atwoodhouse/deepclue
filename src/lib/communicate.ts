@@ -4,7 +4,7 @@ export const communicate = async (messagesToSend: Message[]) => {
   state.update((s) => ({ ...s, waitingForAI: true }));
 
   try {
-    const res = await fetch("/api", {
+    const res = await fetch("https://deepclue-api.vercel.app/api", {
       method: "POST",
       body: JSON.stringify({ messages: messagesToSend }),
     });
