@@ -17,8 +17,9 @@ export async function POST({ request }) {
   if(messages.length > 0) {
     systemPrompts.push({
       role: "system",
-      content: `Format of the question responses:
-      Questions: <number of questions left>
+      content: `As questions are being answered, it shouldn't be hard to figure out who the murderer is. The murderer should try to conceal it, but not very good.
+
+      Format of the question responses:
       People: <characters names that are talking in this response, as they were defined in the system prompt, comma separated if multiple people are talking in the response>
       Tension: <either "Tense" or "Calm", depending on if this specific text is more or less tense than average in this conversation>
       Text: <text output, which can contain clues of who the murderer is>`

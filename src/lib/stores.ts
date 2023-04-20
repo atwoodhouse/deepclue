@@ -40,7 +40,7 @@ export const state: Writable<State> = writable({
   weapon: pickOne(availableWeapons),
   murderer: pickOne(availableCharacters.filter(c => c !== victim)),
   tension: "Calm",
-  questions: 20,
+  questions: 10,
   people: [],
   paragraphs: [],
 });
@@ -72,7 +72,7 @@ export const messages = {
     setTimeout(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }), 200); 
   },
   addFromUser: (text: string) => {
-    const contentToSend = `Question ${21 - get(state).questions} (out of 20): ${text}`;
+    const contentToSend = `Question ${11 - get(state).questions} (out of 10): ${text}`;
 
     const messagesAfterAdd = [
       ...get(_messages),
@@ -83,6 +83,10 @@ export const messages = {
     ];
     _messages.set(messagesAfterAdd);
     communicate(messagesAfterAdd);
-    state.update((s) => ({ ...s, paragraphs: [...s.paragraphs, { who: "you", text }] }));
+    state.update((s) => ({
+      ...s,
+      questions: Math.max(s.questions - 1, 0),
+      paragraphs: [...s.paragraphs, { who: "you", text }]
+    }));
   },
 };
