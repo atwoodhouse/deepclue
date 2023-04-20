@@ -101,7 +101,7 @@
   }
   header {
     position: sticky;
-    top: 1rem;
+    top: 1.5rem;
   }
   h1 {
     position: absolute;
@@ -116,7 +116,7 @@
 
   .state {
     max-width: 300px;
-    margin: 1rem 1rem 1rem auto;
+    margin: 1.5rem 1rem 1rem auto;
     padding: 1rem;
     background-color: #f65c51;
     color: #000;
@@ -155,6 +155,16 @@
     }
     to {
       transform: rotate(360deg);
+    }
+  }
+
+  @media(max-width: 600px) {
+    h1 {
+      display: none;
+    }
+    h1.spin {
+      display: block;
+      z-index: 99;
     }
   }
 </style>

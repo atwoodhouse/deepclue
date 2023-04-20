@@ -18,6 +18,7 @@
     height: 0.75rem;
     background-color: #001a05;
     display: flex;
+    z-index: 8;
   }
   .step {
     border-right: 1px solid #49a459;
