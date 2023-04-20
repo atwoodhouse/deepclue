@@ -64,7 +64,7 @@
   {/each}
 </div>
 
-{#if $state.questions > 0 || $state.waitingForAI}
+{#if $state.stage === 1}
   <UserInput />
 {:else}
   <Accuse />
@@ -86,6 +86,7 @@
     background-color: #111;
     color: #fff;
     font-family: "Electrolize", sans-serif;
+    margin: 0;
     line-height: 1.5;
   }
   :global(.story) {

@@ -294,14 +294,6 @@ packages:
       - supports-color
     dev: true
 
-  /@fontsource/bitter@4.5.11:
-    resolution: {integrity: sha512-+iV2+KwzPEj3iPq3ujQGWVBWRCKUIsgSXPGR/O8HFScSVDpUQnZMZoOBUmJNBmKx0uwd4zGMFAqpE/C08wf92w==}
-    dev: true
-
-  /@fontsource/bungee@4.5.9:
-    resolution: {integrity: sha512-58qwujcunMkogjVZHK3yU/AezNoVjZdImo08aCeslYT1INwtECz7Q8seMcosile4N0fDUZ1MPfp5zj9s/5tjuw==}
-    dev: true
-
   /@fontsource/electrolize@4.5.8:
     resolution: {integrity: sha512-ZMH4brQsd4ZwwcbEa/pU7YPnzdXIaBYJwie52tCGi5rEMVZ+Lg00ZFBSOKK00BDtHbMoa6/MosL7Kg+remNeZw==}
     dev: true
