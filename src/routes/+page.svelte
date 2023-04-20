@@ -6,6 +6,7 @@
   import { communicate } from "$lib/communicate";
   import People from "../components/People.svelte";
   import Error from "../components/Error.svelte";
+  import ProgressBar from "../components/ProgressBar.svelte";
 
   let started = false;
   let calmAudio: HTMLAudioElement;
@@ -38,6 +39,7 @@
   $: typeof window !== undefined && handleTension($state.tension);
 </script>
 
+<ProgressBar />
 <header>
   <h1 class:spin={$state.waitingForAI}>DeepClue</h1>
 
