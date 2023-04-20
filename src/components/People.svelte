@@ -6,7 +6,7 @@
 </script>
 
 <div class="people">
-  {#each people as person (person.name)}
+  {#each people.filter(c => c.name !== $state.victim) as person (person.name)}
     <div>
       <img src={person.image} class:focus={focusClass(person.name)} />
       <p>{person.name}</p>
@@ -21,7 +21,7 @@
     left: 0;
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     grid-gap: 1rem;
     padding: 2rem;
     transform: translate(0, -50%);
