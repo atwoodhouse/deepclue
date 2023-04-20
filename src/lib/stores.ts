@@ -71,6 +71,9 @@ export const messages = {
     state.update(s => ({ ...s, waitingForAI: false }));
     _messages.update((m) => [...m, message]);
     parseMessage(message);
+    if(get(state).questions === 0) {
+      state.update(s => ({ ...s, stage: 2 }))
+    }
     setTimeout(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }), 200); 
   },
   addFromUser: (text: string) => {

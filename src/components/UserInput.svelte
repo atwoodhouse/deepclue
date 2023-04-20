@@ -9,7 +9,10 @@
     value = "";
   };
 
-  const accuse = () => $state.stage = 2;
+  const accuse = () => {
+    $state.stage = 2;
+    setTimeout(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }), 200); 
+  }
 </script>
 
 <div class="user-input">
