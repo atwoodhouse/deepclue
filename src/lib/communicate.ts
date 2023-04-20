@@ -16,6 +16,9 @@ export const communicate = async (messagesToSend: Message[]) => {
         }
       }),
     });
+
+    if(!res.ok) throw new Error();
+
     const newMessage: Message = await res.json();
     messages.addFromAssistant(newMessage);
   } catch {
