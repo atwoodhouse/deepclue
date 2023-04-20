@@ -7,6 +7,7 @@
   import People from "../components/People.svelte";
   import Error from "../components/Error.svelte";
   import ProgressBar from "../components/ProgressBar.svelte";
+  import Accuse from "../components/Accuse.svelte";
 
   let started = false;
   let calmAudio: HTMLAudioElement;
@@ -63,7 +64,11 @@
   {/each}
 </div>
 
-<UserInput />
+{#if $state.questions > 0 || $state.waitingForAI}
+  <UserInput />
+{:else}
+  <Accuse />
+{/if}
 
 {#if $state.error}
   <Error />
@@ -83,7 +88,17 @@
     font-family: "Electrolize", sans-serif;
     line-height: 1.5;
   }
-
+  :global(.story) {
+    position: relative;
+    background-color: #333d;
+    padding: 1rem;
+    width: 90%;
+    max-width: 60rem;
+    margin: 2rem auto 6rem;
+    font-size: 1.25rem;
+    color: #ddd;
+    z-index: 3;
+  }
   header {
     position: sticky;
     top: 1rem;
@@ -114,17 +129,7 @@
     font-size: 1.25rem;
     font-family: "Special Elite", cursive;
   }
-  .story {
-    position: relative;
-    background-color: #333d;
-    padding: 1rem;
-    width: 90%;
-    max-width: 60rem;
-    margin: 2rem auto 6rem;
-    font-size: 1.25rem;
-    color: #ddd;
-    z-index: 3;
-  }
+
   .you {
     font-weight: 700;
     color: #fff;
