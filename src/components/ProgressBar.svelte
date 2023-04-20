@@ -3,10 +3,10 @@
 </script>
 
 <div class="progress-bar">
-  {#each Array(10).fill(null) as step}
+  {#each Array(20).fill(null) as step}
     <div class="step" />
   {/each}
-  <div class="progress" style={`transform: translateX(-${$state.questions}0%)`} />
+  <div class="progress" style={`transform: translateX(-${$state.questions / 2 * 10}%)`} />
 </div>
 
 <style>
