@@ -92,7 +92,7 @@
   </div>
 {/if}
 
-{#if $state.stage !== 2}
+{#if $state.stage === 1 || $state.stage === 3}
   <UserInput />
 {/if}
 
