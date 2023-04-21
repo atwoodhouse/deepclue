@@ -1,19 +1,23 @@
 import { get, writable, type Writable } from "svelte/store";
 import { communicate } from "./communicate";
 
+export type Stage = 1 | 2 | 3;
+
 interface Paragraph {
   who: string;
   text: string;
+  stage: number;
 }
 
 interface State {
-  stage: 1 | 2;
+  stage: Stage;
   error: boolean;
   waitingForAI: boolean;
   room: string;
   victim: string;
   weapon: string;
   murderer: string;
+  accused: string | null;
   tension: string;
   questions: number;
   people: string[];
@@ -23,10 +27,28 @@ interface State {
 export interface Message {
   role: "system" | "assistant" | "user";
   content: string;
+  stage: Stage;
 }
 
-const availableRooms = ["Ball Room", "Billiard Room", "Conservatory", "Kitchen", "Hall", "Cellar", "Lounge", "Library", "Study"];
-const availableCharacters = ["Doctor Orchid", "Colonel Mustard", "Professor Plum", "Miss Scarlet", "Mrs. Peacock", "Mr. Green"];
+const availableRooms = [
+  "Ball Room",
+  "Billiard Room",
+  "Conservatory",
+  "Kitchen",
+  "Hall",
+  "Cellar",
+  "Lounge",
+  "Library",
+  "Study",
+];
+const availableCharacters = [
+  "Doctor Orchid",
+  "Colonel Mustard",
+  "Professor Plum",
+  "Miss Scarlet",
+  "Mrs. Peacock",
+  "Mr. Green",
+];
 const availableWeapons = ["knife", "revolver", "rope", "wrench", "candlestick", "lead pipe"];
 
 const pickOne = (array: string[]) => array[Math.floor(Math.random() * array.length)];
@@ -40,7 +62,8 @@ export const state: Writable<State> = writable({
   room: pickOne(availableRooms),
   victim: victim,
   weapon: pickOne(availableWeapons),
-  murderer: pickOne(availableCharacters.filter(c => c !== victim)),
+  murderer: pickOne(availableCharacters.filter((c) => c !== victim)),
+  accused: null,
   tension: "Calm",
   questions: 20,
   people: [],
@@ -59,7 +82,10 @@ const parseMessage = (message: Message) => {
     } else {
       state.update((s) => ({
         ...s,
-        paragraphs: [...s.paragraphs, { who: "game", text: line.replace("Text: ", "") }],
+        paragraphs: [
+          ...s.paragraphs,
+          { who: "game", text: line.replace("Text: ", ""), stage: message.stage },
+        ],
       }));
     }
   });
@@ -68,13 +94,14 @@ const parseMessage = (message: Message) => {
 export const messages = {
   ..._messages,
   addFromAssistant: (message: Message) => {
-    state.update(s => ({ ...s, waitingForAI: false }));
-    _messages.update((m) => [...m, message]);
-    parseMessage(message);
-    if(get(state).questions === 0) {
-      state.update(s => ({ ...s, stage: 2 }))
+    const messageWithStage = { ...message, stage: get(state).stage };
+    state.update((s) => ({ ...s, waitingForAI: false }));
+    _messages.update((m) => [...m, messageWithStage]);
+    parseMessage(messageWithStage);
+    if (get(state).questions === 0) {
+      state.update((s) => ({ ...s, stage: 2 }));
     }
-    setTimeout(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }), 200); 
+    setTimeout(() => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }), 200);
   },
   addFromUser: (text: string) => {
     const contentToSend = `Question ${21 - get(state).questions} (out of 20): ${text}`;
@@ -84,14 +111,15 @@ export const messages = {
       {
         role: "user",
         content: contentToSend,
-      } as Message
+        stage: get(state).stage,
+      } as Message,
     ];
     _messages.set(messagesAfterAdd);
     communicate(messagesAfterAdd);
     state.update((s) => ({
       ...s,
       questions: Math.max(s.questions - 1, 0),
-      paragraphs: [...s.paragraphs, { who: "you", text }]
+      paragraphs: [...s.paragraphs, { who: "you", text, stage: get(state).stage }],
     }));
   },
 };
