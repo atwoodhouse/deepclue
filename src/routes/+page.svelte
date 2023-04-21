@@ -15,7 +15,7 @@
   let previousTension = "Calm";
 
   const start = () => {
-    communicate([]);
+    communicate();
     calmAudio = new Audio("/calm.mp3");
     tenseAudio = new Audio("/tense.mp3");
     calmAudio.play();
@@ -38,6 +38,9 @@
   };
 
   $: typeof window !== undefined && handleTension($state.tension);
+
+  $: questioning = $state.paragraphs.filter((p) => p.stage === 1);
+  $: court = $state.paragraphs.filter((p) => p.stage === 3);
 </script>
 
 <ProgressBar />
@@ -58,16 +61,28 @@
 
 <People />
 
-<div class="story">
-  {#each $state.paragraphs as { who, text }}
-    <p class:you={who === "you"}>{text}</p>
-  {/each}
-</div>
+{#if questioning.length}
+  <div class="story">
+    {#each questioning as { who, text }}
+      <p class:you={who === "you"}>{text}</p>
+    {/each}
+  </div>
+{/if}
 
-{#if $state.stage === 1}
-  <UserInput />
-{:else}
+{#if $state.stage > 1}
   <Accuse />
+{/if}
+
+{#if court.length}
+  <div class="story">
+    {#each court as { who, text }}
+      <p class:you={who === "you"}>{text}</p>
+    {/each}
+  </div>
+{/if}
+
+{#if $state.stage !== 2}
+  <UserInput />
 {/if}
 
 {#if $state.error}
@@ -159,7 +174,7 @@
     }
   }
 
-  @media(max-width: 600px) {
+  @media (max-width: 600px) {
     h1 {
       display: none;
     }
