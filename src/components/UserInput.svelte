@@ -1,4 +1,5 @@
 <script>
+  import { communicate } from "$lib/communicate";
   import { messages, state } from "$lib/stores";
 
   let value = "";
@@ -11,8 +12,14 @@
 
   const accuse = () => {
     $state.stage = 2;
-    setTimeout(() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' }), 200); 
-  }
+    setTimeout(() => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }), 200);
+  };
+
+  const vote = () => {
+    $state.courtDone = true;
+    $state.stage = 4;
+    setTimeout(() => communicate($messages), 200);
+  };
 </script>
 
 <div class="user-input">
@@ -20,7 +27,11 @@
     <form on:submit|preventDefault={submit}>
       <input bind:value placeholder="Reply here..." disabled={$state.waitingForAI} />
     </form>
-    <button class="accuse" on:click={() => (awaitingConfirmation = true)}>Accuse</button>
+    {#if $state.stage === 1}
+      <button on:click={() => (awaitingConfirmation = true)}>Accuse</button>
+    {:else if $state.stage === 3}
+      <button on:click={vote}>Let jury vote</button>
+    {/if}
   </div>
 </div>
 
@@ -90,15 +101,14 @@
     color: #fff;
     cursor: pointer;
   }
-  
-  
+
   .options button {
     display: block;
     width: 100%;
     margin: 1rem 0;
   }
 
-  @media(min-width: 601px) {
+  @media (min-width: 601px) {
     .user-input {
       bottom: 1rem;
     }
@@ -114,6 +124,4 @@
       color: #000;
     }
   }
-
-
 </style>
