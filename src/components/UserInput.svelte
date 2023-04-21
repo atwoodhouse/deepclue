@@ -1,5 +1,5 @@
 <script>
-  import { communicate } from "$lib/communicate";
+  import { accuse, vote } from "$lib/actions";
   import { messages, state } from "$lib/stores";
 
   let value = "";
@@ -8,17 +8,6 @@
   const submit = () => {
     messages.addFromUser(value);
     value = "";
-  };
-
-  const accuse = () => {
-    $state.stage = 2;
-    setTimeout(() => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }), 200);
-  };
-
-  const vote = () => {
-    $state.courtDone = true;
-    $state.stage = 4;
-    setTimeout(() => communicate($messages), 200);
   };
 </script>
 

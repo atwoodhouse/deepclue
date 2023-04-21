@@ -1,5 +1,6 @@
 import { get, writable, type Writable } from "svelte/store";
 import { communicate } from "./communicate";
+import { accuse, vote } from "./actions";
 
 export type Stage = 1 | 2 | 3 | 4;
 
@@ -96,13 +97,19 @@ const parseMessage = (message: Message) => {
 export const messages = {
   ..._messages,
   addFromAssistant: (message: Message) => {
-    const messageWithStage = { ...message, stage: get(state).stage };
+    const { stage } = get(state);
+    const messageWithStage = { ...message, stage };
     state.update((s) => ({ ...s, waitingForAI: false }));
     _messages.update((m) => [...m, messageWithStage]);
     parseMessage(messageWithStage);
-    if (get(state).questions === 0) {
-      state.update((s) => ({ ...s, stage: 2 }));
+
+    if (get(state).questions === 0 && stage === 1) {
+      state.update((s) => ({ ...s, questions: 5 }));
+      accuse();
+    } else if (get(state).questions === 0 && stage === 3) {
+      vote();
     }
+
     setTimeout(() => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" }), 200);
   },
   addFromUser: (text: string) => {
