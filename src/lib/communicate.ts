@@ -9,7 +9,7 @@ const filterByStage = (messagesToSend: Message[], targetStage: Stage) =>
 export const communicate = async (messagesToSend: Message[] = []) => {
   state.update((s) => ({ ...s, waitingForAI: true }));
 
-  const { victim, murderer, room, weapon, accused } = get(state);
+  const { victim, murderer, room, weapon, accused, courtDone } = get(state);
 
   try {
     const res = await fetch("https://deepclue-api.vercel.app/api", {
@@ -19,10 +19,11 @@ export const communicate = async (messagesToSend: Message[] = []) => {
         court: filterByStage(messagesToSend, 3),
         meta: {
           victim,
-          murderer,
+          murderer: get(state).stage === 1 ? murderer : "unknown",
           room,
           weapon,
           accused,
+          courtDone
         },
       }),
     });

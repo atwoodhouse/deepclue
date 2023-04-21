@@ -1,7 +1,7 @@
 import { get, writable, type Writable } from "svelte/store";
 import { communicate } from "./communicate";
 
-export type Stage = 1 | 2 | 3;
+export type Stage = 1 | 2 | 3 | 4;
 
 interface Paragraph {
   who: string;
@@ -18,6 +18,7 @@ interface State {
   weapon: string;
   murderer: string;
   accused: string | null;
+  courtDone: boolean;
   tension: string;
   questions: number;
   people: string[];
@@ -64,6 +65,7 @@ export const state: Writable<State> = writable({
   weapon: pickOne(availableWeapons),
   murderer: pickOne(availableCharacters.filter((c) => c !== victim)),
   accused: null,
+  courtDone: false,
   tension: "Calm",
   questions: 20,
   people: [],

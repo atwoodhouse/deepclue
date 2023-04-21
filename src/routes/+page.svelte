@@ -41,6 +41,7 @@
 
   $: questioning = $state.paragraphs.filter((p) => p.stage === 1);
   $: court = $state.paragraphs.filter((p) => p.stage === 3);
+  $: finalVerdict = $state.paragraphs.filter((p) => p.stage === 4);
 </script>
 
 <ProgressBar />
@@ -78,6 +79,16 @@
     {#each court as { who, text }}
       <p class:you={who === "you"}>{text}</p>
     {/each}
+  </div>
+{/if}
+
+{#if finalVerdict.length}
+  <div class="story">
+    <h2>Order, order!</h2>
+    {#each finalVerdict as { who, text }}
+      <p class:you={who === "you"}>{text}</p>
+    {/each}
+    <h2>The actual murderer was: {$state.murderer}.</h2>
   </div>
 {/if}
 

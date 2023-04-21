@@ -11,7 +11,7 @@
 </script>
 
 <div class="story">
-  <h1>Time to guess!</h1>
+  <h2>Time to guess!</h2>
   <p>Who murdered {$state.victim} with a {$state.weapon} in the {$state.room.toLowerCase()}?</p>
   {#if !$state.accused}
     <div class="suspects">
