@@ -1,6 +1,14 @@
 # DeepClue
 
 AI based detective game, inspired by Cluedo.
+Powered by the powerful large language AI model GPT-3.5.
+
+## How to play
+When the game begins one of the six people in the castle has just been murdered. But who of the remaining five is the murderer? That's for you to find out, detective.
+
+GPT plays all the characters and will react to any questions you ask. Interrogate the five and find out who the murderer is. When you think you've figured it out, and have gathered enough evidence, click the Accuse button to drag the culprit to court.
+
+Now the game will take a turn to become an Ace Attorney inspired court game, where it's up to you to present your evidence in a convincing way, so that the jury votes to find the murderer guilty. It won't be easy, because GPT will act attorney to defend the accused! When you've presented all your evidence, click "Let jury vote" and cross your fingers!
 
 ## Prerequisites
 
