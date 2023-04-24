@@ -8,7 +8,7 @@
 <div class="people">
   {#each people.filter(c => c.name !== $state.victim) as person (person.name)}
     <div>
-      <img src={person.image} class:focus={focusClass(person.name)} />
+      <img src={person.image} class:focus={focusClass(person.name)} alt={person.name} />
       <p>{person.name}</p>
     </div>
   {/each}
