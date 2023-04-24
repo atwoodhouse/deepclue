@@ -1,6 +1,7 @@
 import { Configuration, OpenAIApi } from "openai";
 import { OPENAI_API_KEY } from "$env/static/private";
 import { getSystemPrompt } from "$lib/server/getSystemPrompt";
+import { dev } from "$app/environment";
 
 export async function POST({ request }) {
   const configuration = new Configuration({
@@ -45,6 +46,10 @@ export async function POST({ request }) {
   console.log(JSON.stringify(completion.data));
 
   const response = new Response(JSON.stringify(completion.data.choices[0].message));
-  response.headers.append("Access-Control-Allow-Origin", "https://deepclue.vercel.app");
+
+  if(!dev) {
+    response.headers.append("Access-Control-Allow-Origin", "https://deepclue.vercel.app");
+  }
+
   return response;
 }
