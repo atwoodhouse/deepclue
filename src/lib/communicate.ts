@@ -1,5 +1,6 @@
 import { get } from "svelte/store";
-import { messages, type Message, state, type Stage } from "./stores";
+import { messages, state } from "./stores";
+import type { Message, Stage } from "./types";
 
 const filterByStage = (messagesToSend: Message[], targetStage: Stage) =>
   messagesToSend

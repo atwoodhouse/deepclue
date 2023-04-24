@@ -50,6 +50,7 @@ export const messages = {
   addFromAssistant: (message: Message) => {
     const { stage } = get(state);
     const messageWithStage = { ...message, stage };
+
     state.update((s) => ({ ...s, waitingForAI: false }));
     _messages.update((m) => [...m, messageWithStage]);
     parseMessage(messageWithStage);
