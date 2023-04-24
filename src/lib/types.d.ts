@@ -1,6 +1,8 @@
 
 export type Stage = 1 | 2 | 3 | 4;
 
+export type Tension = "Calm" | "Tense";
+
 interface Paragraph {
   who: string;
   text: string;
@@ -17,7 +19,7 @@ export interface State {
   murderer: string;
   accused: string | null;
   courtDone: boolean;
-  tension: string;
+  tension: Tension;
   questions: number;
   people: string[];
   paragraphs: Paragraph[];

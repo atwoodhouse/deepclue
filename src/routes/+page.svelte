@@ -9,6 +9,7 @@
   import ProgressBar from "../components/ProgressBar.svelte";
   import Accuse from "../components/Accuse.svelte";
   import Intro from "../components/Intro.svelte";
+  import type { Tension } from "$lib/types";
 
   let started = false;
   let calmAudio: HTMLAudioElement;
@@ -25,7 +26,7 @@
     started = true;
   };
 
-  const handleTension = (tension: "Calm" | "Tense") => {
+  const handleTension = (tension: Tension) => {
     if (tension === previousTension) return;
     previousTension = tension;
 

@@ -2,7 +2,7 @@ import { get, writable, type Writable } from "svelte/store";
 import { communicate } from "./communicate";
 import { accuse, vote } from "./actions";
 import { people, rooms, weapons } from "./world";
-import type { Message, State } from "./types";
+import type { Message, State, Tension } from "./types";
 
 const pickOne = (array: string[]) => array[Math.floor(Math.random() * array.length)];
 const victim = pickOne(people.map(({ name }) => name));
@@ -32,7 +32,7 @@ const parseMessage = (message: Message) => {
     } else if (line.startsWith("People: ")) {
       state.update((s) => ({ ...s, people: line.replace("People: ", "").split(", ") }));
     } else if (line.startsWith("Tension: ")) {
-      state.update((s) => ({ ...s, tension: line.replace("Tension: ", "") }));
+      state.update((s) => ({ ...s, tension: line.replace("Tension: ", "") as Tension }));
     } else {
       state.update((s) => ({
         ...s,
