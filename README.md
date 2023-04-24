@@ -6,6 +6,11 @@ AI based detective game, inspired by Cluedo.
 
 This project requires Node 18. It's recommended to install Node 18 via [nvm](https://github.com/nvm-sh/nvm).
 
+The project uses pnpm as its package manager. Install pnpm with:
+```bash
+npm i -g pnpm
+```
+
 ## Develop
 
 Clone the project.
