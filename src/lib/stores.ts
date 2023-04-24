@@ -1,70 +1,21 @@
 import { get, writable, type Writable } from "svelte/store";
 import { communicate } from "./communicate";
 import { accuse, vote } from "./actions";
-
-export type Stage = 1 | 2 | 3 | 4;
-
-interface Paragraph {
-  who: string;
-  text: string;
-  stage: number;
-}
-
-interface State {
-  stage: Stage;
-  error: boolean;
-  waitingForAI: boolean;
-  room: string;
-  victim: string;
-  weapon: string;
-  murderer: string;
-  accused: string | null;
-  courtDone: boolean;
-  tension: string;
-  questions: number;
-  people: string[];
-  paragraphs: Paragraph[];
-}
-
-export interface Message {
-  role: "system" | "assistant" | "user";
-  content: string;
-  stage: Stage;
-}
-
-const availableRooms = [
-  "Ball Room",
-  "Billiard Room",
-  "Conservatory",
-  "Kitchen",
-  "Hall",
-  "Cellar",
-  "Lounge",
-  "Library",
-  "Study",
-];
-const availableCharacters = [
-  "Doctor Orchid",
-  "Colonel Mustard",
-  "Professor Plum",
-  "Miss Scarlet",
-  "Mrs. Peacock",
-  "Mr. Green",
-];
-const availableWeapons = ["knife", "revolver", "rope", "wrench", "candlestick", "lead pipe"];
+import { people, rooms, weapons } from "./world";
+import type { Message, State } from "./types";
 
 const pickOne = (array: string[]) => array[Math.floor(Math.random() * array.length)];
-const victim = pickOne(availableCharacters);
+const victim = pickOne(people.map(({ name }) => name));
 
 const _messages: Writable<Message[]> = writable([]);
 export const state: Writable<State> = writable({
   stage: 1,
   error: false,
   waitingForAI: false,
-  room: pickOne(availableRooms),
+  room: pickOne(rooms),
   victim: victim,
-  weapon: pickOne(availableWeapons),
-  murderer: pickOne(availableCharacters.filter((c) => c !== victim)),
+  weapon: pickOne(weapons),
+  murderer: pickOne(people.map(({ name }) => name).filter((c) => c !== victim)),
   accused: null,
   courtDone: false,
   tension: "Calm",

@@ -1,9 +1,4 @@
-interface Meta {
-    victim: string;
-    murderer: string;
-    room: string;
-    weapon: string;
-}
+import type { Meta } from "$lib/types";
 
 export const getSystemPrompt = ({ victim, murderer, room, weapon }: Meta) => `You are a text adventure game set in a Cluedo-style 1920s environment, inspired by Philip K. Dick, William Gibson, and Vernor Vinge. Characters: Doctor Orchid, Colonel Mustard, Professor Plum, Miss Scarlet, Mrs. Peacock, Mr. Green. Rooms: Ball Room, Billiard Room, Conservatory, Kitchen, Hall, Cellar, Lounge, Library, Study.
 Victim: ${victim}. Murderer: ${murderer}. Murder room: ${room}. Weapon: ${weapon}.

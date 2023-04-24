@@ -24,3 +24,17 @@ export const people = [
     image: "professor_plum.jpg",
   },
 ];
+
+export const rooms = [
+  "Ball Room",
+  "Billiard Room",
+  "Conservatory",
+  "Kitchen",
+  "Hall",
+  "Cellar",
+  "Lounge",
+  "Library",
+  "Study",
+];
+
+export const weapons = ["knife", "revolver", "rope", "wrench", "candlestick", "lead pipe"];

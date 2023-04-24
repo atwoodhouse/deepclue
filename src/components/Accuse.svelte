@@ -15,7 +15,7 @@
   <p>Who murdered {$state.victim} with a {$state.weapon} in the {$state.room.toLowerCase()}?</p>
   {#if !$state.accused}
     <div class="suspects">
-      {#each people.filter((c) => c.name !== $state.victim) as person (person.name)}
+      {#each people.filter(({ name }) => name !== $state.victim) as person (person.name)}
         <button on:click={() => accuse(person.name)}>
           <img src={person.image} />
           <p>{person.name}</p>
