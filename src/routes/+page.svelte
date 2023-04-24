@@ -8,6 +8,7 @@
   import Error from "../components/Error.svelte";
   import ProgressBar from "../components/ProgressBar.svelte";
   import Accuse from "../components/Accuse.svelte";
+  import Intro from "../components/Intro.svelte";
 
   let started = false;
   let calmAudio: HTMLAudioElement;
@@ -101,7 +102,7 @@
 {/if}
 
 {#if !started}
-  <button class="start-button" on:click={start}>Start DeepClue</button>
+  <Intro on:click={start} />
 {/if}
 
 <style>
@@ -114,6 +115,7 @@
     font-family: "Electrolize", sans-serif;
     margin: 0;
     line-height: 1.5;
+    overflow-x: hidden;
   }
   :global(.story) {
     position: relative;
@@ -160,20 +162,6 @@
   .you {
     font-weight: 700;
     color: #fff;
-  }
-
-  .start-button {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #111;
-    color: #fff;
-    font-family: "Special Elite", cursive;
-    font-size: 4rem;
-    border: 0.5rem solid #fff;
-    z-index: 99;
   }
 
   @keyframes spin {
