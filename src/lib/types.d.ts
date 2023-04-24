@@ -36,4 +36,5 @@ interface Meta {
   murderer: string;
   room: string;
   weapon: string;
+  accused: string;
 }

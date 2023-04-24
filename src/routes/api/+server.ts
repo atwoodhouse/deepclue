@@ -12,18 +12,10 @@ export async function POST({ request }) {
 
   console.log("asking question");
 
-  const systemPrompts = [{ role: "system", content: getSystemPrompt(meta) }];
+  const systemPrompts = [getSystemPrompt(meta, 0)];
 
   if (questioning.length) {
-    systemPrompts.push({
-      role: "system",
-      content: `As questions are being answered, it shouldn't be hard to figure out who the murderer is. The murderer should try to conceal it, but not very good.
-
-      Format of the question responses:
-      People: <characters names that are talking in this response, as they were defined in the system prompt, comma separated if multiple people are talking in the response>
-      Tension: <either "Tense" or "Calm", depending on if this specific text is more or less tense than average in this conversation>
-      Text: <text output, which can contain clues of who the murderer is>`,
-    });
+    systemPrompts.push(getSystemPrompt(meta, 1));
   }
 
   let messages = [...systemPrompts, ...questioning];
@@ -31,15 +23,7 @@ export async function POST({ request }) {
   if (meta.accused) {
     messages = [
       ...messages,
-      {
-        role: "system",
-        content: `I, the detective, have now decided that I believe that ${meta.accused} is the murderer.
-      Now we move from the castle into the court room. In the court room I am the prosecutor, trying to convice the jury (12 people) that ${meta.accused} actually murdered ${meta.victim}.
-      You are the defending attorney, called Ace. You are briefed on everything that was said during the interrogation at the castle and will do your utmost to defend ${meta.accused}. Your personality is crazy and you often begin sentences with "OBJECTION!"
-      I (prosecutor) and you (attorney Ace) take turns, with the prosecutor first being allowed to give his case. I (the user) can not be Ace. I play the role of the prosecutor. You play the role of the attorney Ace.
-      Give a short introduction of how we arrive at the court and ${meta.accused}'s reaction.
-      Answer briefly and await the prosecutors arguments from the user.`,
-      },
+      getSystemPrompt(meta, 2),
       ...court,
     ];
   }
@@ -47,16 +31,7 @@ export async function POST({ request }) {
   if (meta.courtDone) {
     messages = [
       ...messages,
-      {
-        role: "system",
-        content: `Now you are a jury of 12 people who have to take into consideration all arguments that the prosecutor presented and all arguments that the defending attorney presented. Weigh them properly and then tell how many of the jury that vote that ${meta.accused} is guilty versus innocent.
-        At least 7 out of 12 have to vote guilty for ${meta.accused} to be found guilty and put in prison. By default the jury members should vote innocent, unless the evidence put fourth in the court is strong.
-
-        Response format:
-        Vote innocent: <number of votes>
-        Vote guilty: <number of votes>
-        Text: <text output>`,
-      },
+      getSystemPrompt(meta, 3),
     ];
   }
 
