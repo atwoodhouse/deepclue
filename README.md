@@ -1,6 +1,6 @@
 # DeepClue
 
-AI based detective game, inspired by Cluedo. Powered by the powerful large language AI model GPT-3.5. Written in SvelteKit using Typescript.
+AI based detective game, inspired by Cluedo. Powered by the powerful large language AI model GPT-4. Written in SvelteKit using Typescript.
 
 ## How to play
 When the game begins one of the six people in the castle has just been murdered. But who of the remaining five is the murderer? That's for you to find out, detective.
